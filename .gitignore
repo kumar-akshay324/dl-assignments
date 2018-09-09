@@ -1,4 +1,5 @@
 .pyc
 f16RBE595/*.pyc
+f16RBE595/classifiers/*.pyc
 f16RBE595/data/cifar-10-batches-py/*
 f16RBE595/__pycache__
