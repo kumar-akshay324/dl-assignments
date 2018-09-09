@@ -29,7 +29,7 @@ def svm_loss_vectorized(W, X, y, reg):
   # print "Num Classes: ", num_classes
   if W is None:
     # lazily initialize W
-    W = np.random.randn(num_classes, dim) * 0.001
+    W = np.random.randn(num_classes, dim) * 0.0001
 
   loss_image_arr = np.empty([num_train, num_classes])
 

@@ -1,5 +1,5 @@
 .pyc
-f16RBE595/*.pyc
-f16RBE595/classifiers/*.pyc
-f16RBE595/data/cifar-10-batches-py/*
-f16RBE595/__pycache__
+SVM-Week1/f16RBE595/*.pyc
+SVM-Week1/f16RBE595/classifiers/*.pyc
+SVM-Week1/f16RBE595/data/cifar-10-batches-py/*
+SVM-Week1/f16RBE595/__pycache__
