@@ -67,7 +67,7 @@ def svm_loss_vectorized(W, X, y, reg):
   binary_matrix = loss_image_arr>0
   # print "Binary Matrix: ", binary_matrix.shape, "X_batch: ", X_batch.shape
 
-  dW = np.transpose(np.matmul(X, binary_matrix))
+  dW = -np.transpose(np.matmul(X, binary_matrix))
   dW = dW/num_train
   # print "Iteration -- ", "Loss: ", loss_iter , "Gradient Shape: ", dW.shape, "Weight Shape: ", self.W.shape
 

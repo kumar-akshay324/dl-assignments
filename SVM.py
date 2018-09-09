@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
 """
+Assignment 1 - WPI RBE 595 - Deep Learning For Robot Perception
 @author: Akshay Kumar
 """
 
@@ -149,12 +150,13 @@ from f16RBE595.classifiers import LinearSVM
 svm = LinearSVM()
 tic = time.time()
 loss_hist = svm.train(X_train, y_train, learning_rate=1e-7, reg=5e4,
-                      num_iters=1500, verbose=True)
+                      num_iters=1000, verbose=True)
 toc = time.time()
 print 'That took %fs' % (toc - tic)
 
 # A useful debugging strategy is to plot the training loss as a function of
 # iteration number:
+f = plt.figure()
 plt.plot(loss_hist)
 plt.xlabel('Iteration number')
 plt.ylabel('Loss value')
@@ -182,3 +184,4 @@ for i in xrange(10):
   plt.imshow(wimg.astype('uint8'))
   plt.axis('off')
   plt.title(classes[i])
+plt.show()
