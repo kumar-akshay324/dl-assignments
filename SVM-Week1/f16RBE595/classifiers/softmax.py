@@ -29,7 +29,39 @@ def softmax_loss_naive(W, X, y, reg):
   # here, it is easy to run into numeric instability. Don't forget the        #
   # regularization!                                                           #
   #############################################################################
-  pass
+
+  dim, num_train = X.shape
+  # print X.dtype
+  num_classes = np.max(y) + 1  # assume y takes values 0...K-1 where K is number of classes
+  # print "Num Classes: ", num_classes
+  if W is None:
+    # lazily initialize W
+    W = np.random.randn(num_classes, dim) * 0.0001
+
+  loss_image_arr = np.empty(num_train)
+
+  # Information about various dimensions
+  # print "Num Dimensions: ", dim, "Num Samples: ", num_train, "Num Classes: ", num_classes
+
+  score_matrix = np.matmul(W, X)
+  for i in range(num_train):
+    sample_sum = 0.0
+    for j in range(num_classes):
+      sample_sum += score_matrix[j, i]
+
+    loss_image_arr[i] = -score_matrix[y[i], i] + np.log(sample_sum)
+
+  reg_loss  = reg * np.sum(np.square(W))
+  loss = np.sum(loss_image_arr)/num_train + reg_loss
+
+  new_loss_mat = np.matmul(np.transpose(loss_image_arr), loss_image_arr)
+  binary_matrix = new_loss_mat>0
+  # print "Binary Matrix: ", binary_matrix.shape, "X_batch: ", X_batch.shape
+
+  dW = -np.transpose(np.matmul(np.matrix(X), binary_matrix))
+  dW = dW/num_train
+  # print "Iteration -- ", "Loss: ", loss_iter , "Gradient Shape: ", dW.shape, "Weight Shape: ", self.W.shape
+
   #############################################################################
   #                          END OF YOUR CODE                                 #
   #############################################################################

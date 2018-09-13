@@ -1,6 +1,6 @@
 import numpy as np
 from f16RBE595.classifiers.linear_svm import *
-# from f16RBE595.classifiers.softmax import *
+from f16RBE595.classifiers.softmax import *
 
 class LinearClassifier:
 
@@ -65,7 +65,7 @@ class LinearClassifier:
       #########################################################################
 
       # evaluate loss and gradient
-      loss, grad = self.loss(X_batch, y_batch, reg)
+      loss, grad = softmax_loss_naive(self.W, X_batch, y_batch, reg)
       # loss, grad = svm_loss_vectorized(self.W, X_batch, y_batch, reg)
       loss_history.append(loss)
 
@@ -74,7 +74,7 @@ class LinearClassifier:
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      # new_learning_rate += learning_rate
+      # new_learning_rate = new_learning_rate/2
       self.W += grad*new_learning_rate
       # self.W[-1, :] = 0.0001
       #########################################################################
@@ -177,6 +177,7 @@ class LinearSVM(LinearClassifier):
 class Softmax(LinearClassifier):
   """ A subclass that uses the Softmax + Cross-entropy loss function """
 
-  # def loss(self, X_batch, y_batch, reg):
-  #   return softmax_loss_vectorized(self.W, X_batch, y_batch, reg)
+  def loss(self, X_batch, y_batch, reg):
+    return softmax_loss_naive(self.W, X_batch, y_batch, reg)
+    # return softmax_loss_vectorized(self.W, X_batch, y_batch, reg)
 
