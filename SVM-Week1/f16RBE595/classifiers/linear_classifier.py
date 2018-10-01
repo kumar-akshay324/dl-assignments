@@ -65,8 +65,8 @@ class LinearClassifier:
       #########################################################################
 
       # evaluate loss and gradient
-      loss, grad = softmax_loss_naive(self.W, X_batch, y_batch, reg)
-      # loss, grad = svm_loss_vectorized(self.W, X_batch, y_batch, reg)
+      loss, grad = self.loss(X_batch, y_batch, reg)
+      # loss, grad = softmax_loss_naive(self.W, X_batch, y_batch, reg)
       loss_history.append(loss)
 
       # perform parameter update
