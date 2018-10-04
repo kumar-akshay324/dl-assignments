@@ -92,7 +92,6 @@ class AnnotatedImageParser():
 			return False
 		pass
 
-
 if __name__ == '__main__':
 	
 	a_dir_name = "../VOCdevkit/VOC2012/Annotations"
