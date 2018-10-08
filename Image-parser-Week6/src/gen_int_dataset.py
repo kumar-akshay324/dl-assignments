@@ -2,6 +2,7 @@ import os
 import xml.etree.ElementTree as elemTree
 from PIL import Image 
 import time
+import pickle
 class AnnotatedImageParser():
 
 	def __init__(self, annotation_dir, image_dir):
@@ -90,12 +91,26 @@ class AnnotatedImageParser():
 		else:
 			print "False"
 			return False
-		pass
+
+	def binary_creation(self):
+
+		with open('parsed_datset.pkl','ab') as p_dataset:
+		    for s_class in os.listdir('../classes/'):
+		    	subclass = os.getcwd() + '/../classes/' + str(s_class)
+		    	print (subclass)
+
+		    	for subclass_img in os.listdir(subclass):
+		            image_filename = str(subclass) + "/" + str(subclass_img) 
+		            img = Image.open(image_filename,'r')
+		            pickle.dump(img, p_dataset)
+		            img.close()
+		    p_dataset.close()
 
 if __name__ == '__main__':
 	
 	a_dir_name = "../VOCdevkit/VOC2012/Annotations"
 	i_dir_name = "../VOCdevkit/VOC2012/JPEGImages"
 	annotation_parser = AnnotatedImageParser(a_dir_name, i_dir_name)
-	annotation_parser.parse_files()
+	# annotation_parser.parse_files()
+	annotation_parser.binary_creation()
 	print ("Parsed all Images")

@@ -37,9 +37,10 @@ def create_model():
 	model = Sequential()
 	model.add(Dense(60, input_dim=60, init='normal', activation='relu', W_constraint=maxnorm(3)))
 	model.add(Dropout(0.2))
-	model.add(Dense(30, init='normal', activation='relu', W_constraint=maxnorm(3)))
-	model.add(Dropout(0.2))
+
 	model.add(Dense(1, init='normal', activation='sigmoid'))
+	model.add(Dropout(0.2))
+
 	# Compile model
 	sgd = SGD(lr=0.1, momentum=0.9, decay=0.0, nesterov=False)
 	model.compile(loss='binary_crossentropy', optimizer=sgd, metrics=['accuracy'])
@@ -52,4 +53,5 @@ estimators.append(('mlp', KerasClassifier(build_fn=create_model, nb_epoch=300, b
 pipeline = Pipeline(estimators)
 kfold = StratifiedKFold(y=encoded_Y, n_folds=10, shuffle=True, random_state=seed)
 results = cross_val_score(pipeline, X, encoded_Y, cv=kfold)
+print ("syvjb")
 print("Hidden: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))

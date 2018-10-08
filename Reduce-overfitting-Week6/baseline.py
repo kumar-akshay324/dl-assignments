@@ -35,15 +35,11 @@ encoded_Y = encoder.transform(Y)
 def create_baseline():
 	# create model
 	model = Sequential()
-	model.add(Dropout(0.2, input_shape=(60,)))
 	model.add(Dense(60, input_dim=60, init='normal', activation='relu'))
-	# model.add(Dropout(0.1))
 	model.add(Dense(30, init='normal', activation='relu'))
-	# model.add(Dropout(0.1))
 	model.add(Dense(1, init='normal', activation='sigmoid'))
-	# model.add(Dropout(0.1))
 	# Compile model
-	sgd = SGD(lr=0.1, momentum=0.9, decay=0.0, nesterov=False)
+	sgd = SGD(lr=0.01, momentum=0.8, decay=0.0, nesterov=False)
 	model.compile(loss='binary_crossentropy', optimizer=sgd, metrics=['accuracy'])
 	return model
 
@@ -54,4 +50,5 @@ estimators.append(('mlp', KerasClassifier(build_fn=create_baseline, nb_epoch=300
 pipeline = Pipeline(estimators)
 kfold = StratifiedKFold(y=encoded_Y, n_folds=10, shuffle=True, random_state=seed)
 results = cross_val_score(pipeline, X, encoded_Y, cv=kfold)
+print ("Yom")
 print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
