@@ -89,7 +89,7 @@ class AnnotatedImageParser():
 			b.save(final_image_name, "JPEG", quality=100)
 			return True
 		else:
-			print "False"
+			print ("False")
 			return False
 
 	def binary_creation(self):
