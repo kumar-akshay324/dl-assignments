@@ -53,7 +53,7 @@ Generate an intermediate dataset by parsing the XML annotation files for given V
 * All the images parsed to subimages and stored within individual class folder have been resized to 224 x 224 pixel resolution with restored quality
 
 
-# Multi-Layer Perceptron and Convolutional Neural Networks for MNIST Handwritten Digit recognition
+# Multi-Layer Perceptron and Convolutional Neural Networks for MNIST Handwritten Digit recognition - Week 7
 
 Create an basic MLP neural network and another CNN to classify handwritten digits from the MNIST data available by default through the Keras library. 
 
@@ -61,6 +61,6 @@ Create an basic MLP neural network and another CNN to classify handwritten digit
 
 ### Usage
 
-## Results
+### Results
 
 
