@@ -5,3 +5,7 @@ SVM-Week1/f16RBE595/data/cifar-10-batches-py/*
 SVM-Week1/f16RBE595/__pycache__
 Image-parser-Week6/VOCdevkit/VOC2012
 Image-parser-Week6/classes
+
+*/src/__pycache__
+*/__pycache__
+*/*/__pycache__
