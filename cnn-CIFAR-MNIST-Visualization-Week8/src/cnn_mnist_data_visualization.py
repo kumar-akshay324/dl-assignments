@@ -45,19 +45,7 @@ class RecogniseHandWrittenDigits():
 		self.y_test = np_utils.to_categorical(self.y_test)
 		self.num_classes = self.y_test.shape[1]
 
-	def createOptimizer(self, opt):
-
-		lr = 0.1
-		dcy = lr/self.num_epochs
-		if opt=="adam":
-			designed_optimizer = Adam(lr=0.1, beta_1=0.9, beta_2=0.999, decay=dcy)
-			designed_optimizer = Adam()
-		elif opt=="sgd":
-			designed_optimizer = SGD(lr=0.1)
-
-		return designed_optimizer
-
-	def createModel(self):
+	def processTrainedModel(self):
 		model = Sequential()
 
 		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
@@ -76,18 +64,13 @@ class RecogniseHandWrittenDigits():
 		print (model.summary())
 		return model
 
-	def trainModel(self, model):
+	def obtainTrainedModel(self):
 
-		model.fit(self.x_train, self.y_train, validation_data=(self.x_test, self.y_test), epochs=self.num_epochs, batch_size=self.size_batches)
-		self.trained_model = model
-		self.trained_model.save("cnn_mnist.h5")
 
 	def testModel(self):
-
 		self.training_score = self.trained_model.evaluate(self.x_test, self.y_test, verbose=self.verbosity)
 
 	def getScores(self):
-
 		print("CNN Error: %.2f%%" % (100-self.training_score[1]*100))
 
 
@@ -98,7 +81,7 @@ if __name__ == '__main__':
 	mnist_obj.loadData()
 	mnist_obj.prepareData()
 	mnist_obj.prepareLabels()
-	created_model = mnist_obj.createModel()
+	created_model = mnist_obj.obtainModel()
 	mnist_obj.trainModel(created_model)
 	mnist_obj.testModel()
 	mnist_obj.getScores()
