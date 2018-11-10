@@ -88,35 +88,19 @@ Epoch 10/10
 CNN Error: 0.96%
 
 
-## Visualization of Convolutional Layer per filter on Trained Models for CIFAR10 and MNIST dataset - Week 8
-
-Use an already trained CNN model and visualize the convolutional filter per layer, used on the CIFAR10 dataset and MNIST dataset available in Keras
+## Face Recognition Using Deep Learning - Week 10
 
 ### Usage
 
-* Run the _mlp_mnist_data.py_ and _cnn_mnist_data.py_ to execute the MLP and CNN implementation of image classification.
-* The MNIST dataset should be automatically downloaded from the keras remote
-* Modify the various other hyperparameters in the code.
-
 ### File Structure
-
-├── cnn-mlp-MNIST-Week7
-	├── DL_AKSHAY_KUMAR_HW4.pdf
-	├── README.md
-	└── src
-	    ├── cnn_mnist_data.py
-	    └── mlp_mnist_data.py
 
 ### Results
 
-* MLP Results
+## Visualization of Convolutional Layer per filter on Trained Models for CIFAR10 and MNIST dataset - Week 8
 
-Epoch 20/20
-60000/60000 [==============================] - 5s 83us/step - loss: 0.0217 - acc: 0.9945 - val_loss: 0.0515 - val_acc: 0.9909
-MLP Error: 0.94%
+### Usage
 
-* CNN Results
+### File Structure
 
-Epoch 10/10
-60000/60000 [==============================] - 131s 2ms/step - loss: 0.0201 - acc: 0.9946 - val_loss: 0.0311 - val_acc: 0.9911
-CNN Error: 0.96%
+### Results
+
