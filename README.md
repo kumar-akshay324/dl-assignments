@@ -39,7 +39,8 @@ Generate an intermediate dataset by parsing the XML annotation files for given V
 
 ### File Structure
 
-├── Image-parser-Week6
+
+```├── Image-parser-Week6
 	└── src
 	└── VOCdevkit	
 	└── classes
@@ -49,6 +50,7 @@ Generate an intermediate dataset by parsing the XML annotation files for given V
 	    ..
 	    ..
 	    └── car
+```
 
 ### Results
 
@@ -65,13 +67,14 @@ Create an basic MLP neural network and another CNN to classify handwritten digit
 * Modify the various other hyperparameters in the code.
 
 ### File Structure
-
+```
 ├── cnn-mlp-MNIST-Week7
 	├── DL_AKSHAY_KUMAR_HW4.pdf
 	├── README.md
 	└── src
 	    ├── cnn_mnist_data.py
 	    └── mlp_mnist_data.py
+```
 
 ### Results
 
@@ -90,15 +93,14 @@ CNN Error: 0.96%
 
 ## Face Recognition Using Deep Learning - Week 10
 
-### Usage
-
-### File Structure
-
-### Results
-
-## Visualization of Convolutional Layer per filter on Trained Models for CIFAR10 and MNIST dataset - Week 8
+### STILL UNDER HEAVY DEVELOPMENT
 
 ### Usage
+
+#### Video to Image Extraction
+	* Place the video of the person inside face-recognition-Homework-7-8/videos folder with the name <person_name>.mp4
+	* From the main directory of the project, i.e. face-recognition-Homework-7-8/, run `make run`
+	* The extracted images should be stored at face-recognition-Homework-7-8/images/<person_name>/image_<frame_number>
 
 ### File Structure
 
