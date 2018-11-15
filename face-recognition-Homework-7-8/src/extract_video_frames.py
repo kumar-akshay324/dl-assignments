@@ -61,7 +61,57 @@ class VideoToImages():
 			print ('\033[92m' + "Success storing images")
 		else:
 			print ('\033[93m' + "Could not save all images")
+			
+			
+	# returns "True" if face is detected in image stored at img_path
+	def face_detector(img_path):
+    		img = cv2.imread(img_path)
+    		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    		faces = face_cascade.detectMultiScale(gray)
+    		return len(faces) > 0
+	
+###################	
+from PIL import ImageFile 
+from keras.layers import Conv2D, MaxPooling2D, GlobalAveragePooling2D
+from keras.layers import Dropout, Flatten, Dense
+from keras.models import Sequential
+from keras.callbacks import ModelCheckpoint 
+ImageFile.LOAD_TRUNCATED_IMAGES = True                 
 
+# pre-process the data for Keras
+train_tensors = paths_to_tensor(train_files).astype('float32')/255
+valid_tensors = paths_to_tensor(valid_files).astype('float32')/255
+test_tensors = paths_to_tensor(test_files).astype('float32')/255
+
+
+
+model = Sequential()
+
+### TODO: Defining architecture.
+
+model.summary()
+model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+ 
+
+### TODO: specify the number of epochs to train the model.
+
+epochs = ...
+
+checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.from_scratch.hdf5', 
+                               verbose=1, save_best_only=True)
+
+model.fit(train_tensors, train_targets, 
+          validation_data=(valid_tensors, valid_targets),
+          epochs=epochs, batch_size=20, callbacks=[checkpointer], verbose=1)
+model.load_weights('saved_models/weights.best.from_scratch.hdf5')
+
+# get index of predicted person for each image in test set
+person_predictions = [np.argmax(model.predict(np.expand_dims(tensor, axis=0))) for tensor in test_tensors]
+
+# report test accuracy
+test_accuracy = 100*np.sum(np.array(person_predictions)==np.argmax(test_targets, axis=1))/len(person_predictions)
+print('Test accuracy: %.4f%%' % test_accuracy)
+####################################
 if __name__ == '__main__':
 	video = os.getcwd() + "/videos/akshay.mp4"
 	frames_per_second = 30
