@@ -62,10 +62,13 @@ class VideoToImages():
 		else:
 			print ('\033[93m' + "Could not save all images")
 
+	def execute(self):
+		processFolder()
+		extractImagesFromVideo()
+
 if __name__ == '__main__':
 	video = os.getcwd() + "/videos/akshay.mp4"
 	frames_per_second = 30
 	images_folder = "../extracted_images"
 	vidImgObj = VideoToImages(video, frames_per_second)
-	vidImgObj.processFolder()
-	vidImgObj.extractImagesFromVideo()
+	vidImgObj.execute()
