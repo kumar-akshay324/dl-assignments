@@ -3,7 +3,7 @@ import numpy as np
 import os, math, time
 import pandas as pd
 import matplotlib.pyplot as plt
-
+# from PIL import Image as imm
 
 class ExtractFaceFromImage():
 
@@ -11,7 +11,8 @@ class ExtractFaceFromImage():
 		self.image_folder_path = path_to_image_folder
 
 	def cascaded_filters(self):
-		cascade_file_src = "haarcascade_frontalface_default.xml"
+		cascade_file_src = "/home/akshay/anaconda3/envs/deeplearning/lib/python3.5/site-packages/cv2/data/haarcascade_frontalface_default.xml"
+		# cascade_file_src = "haarcascade_frontalface_default.xml"
 		self.faceCascade = cv2.CascadeClassifier(cascade_file_src)
 
 	def cascaded_classifier(self):
@@ -27,21 +28,22 @@ class ExtractFaceFromImage():
 				print ("Image File Name: ", image_filename)
 
 			# # Load image and convert into grayscale
-			image = cv2.imread(image_file, cv2.LOAD_IMAGE_COLOR)
-			# # image_grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-			print (type(image))
+			image_grayscale = cv2.imread(image_filename,0) #cv2.WINDOW_NORMAL)
+			# image_grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-			# cv2.imshow("ImageWindow", image)
+			# cv2.imshow("", image_grayscale)
 			# cv2.waitKey()
 
 			# # Find all available faces in the image
-			# detected_faces = faceCascade.detectMultiScale(gray, 1.2, 5)
+			detected_faces = self.faceCascade.detectMultiScale(image_grayscale, 1.2, 5)
 
 			# # Bounding Box around the face
-			# for (l_x, l_y, l_w, l_h) in detected_faces:
-			#     cv2.rectangle(image, (l_x, l_y), (l_x+l_w, l_y+l_h), (0, 255, 0), 2)
+			for (l_x, l_y, l_w, l_h) in detected_faces:
+			    cv2.rectangle(image_grayscale, (l_x, l_y), (l_x+l_w, l_y+l_h), (125, 255, 50), 2)
 
-			# plt.imshow(image)
+			image_grayscale = cv2.resize(image_grayscale, (image_grayscale.shape[0]//5, image_grayscale.shape[1]//5))
+			cv2.imshow("ImageWindow",image_grayscale)
+			cv2.waitKey()
 
 	def execute(self):
 		self.cascaded_filters()
