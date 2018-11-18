@@ -63,8 +63,8 @@ class VideoToImages():
 			print ('\033[93m' + "Could not save all images")
 
 	def execute(self):
-		processFolder()
-		extractImagesFromVideo()
+		self.processFolder()
+		self.extractImagesFromVideo()
 
 if __name__ == '__main__':
 	video = os.getcwd() + "/videos/akshay.mp4"

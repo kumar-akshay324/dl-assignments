@@ -137,12 +137,12 @@ class FaceRecognition():
 		results.to_csv("results.csv",index=False)
 
 	def execute(self):
-		loadData()
-		created_model = createModel()
-		trainModel(created_model)
-		evaluateModel()
-		testModel()
-		savePredictions()
+		self.loadData()
+		created_model = self.createModel()
+		self.trainModel(created_model)
+		self.evaluateModel()
+		self.testModel()
+		self.savePredictions()
 
 
 if __name__ == '__main__':
