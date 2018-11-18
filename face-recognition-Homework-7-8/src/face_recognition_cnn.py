@@ -19,13 +19,14 @@ import matplotlib.pyplot as plt
 
 from keras.utils import np_utils
 from keras.optimizers import *
+import pandas as pd
 
 from keras import backend as K
 K.set_image_dim_ordering('th')
 
 from VideoToImages import *
 
-class Classify():
+class FaceRecognition():
 
 	extract_images = VideoToImages()
 
@@ -78,28 +79,23 @@ class Classify():
 	def createModel(self):
 		model = Sequential()
 
-		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
+		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(224, 224, 3), padding="valid"))
+		model.add(Conv2D(64, (5,5), activation="sigmoid", padding="valid"))
+		model.add(Conv2D(128, (5,5), activation="relu", padding="valid"))
 		model.add(MaxPooling2D(pool_size=(2,2)))
-		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
+		model.add(Conv2D(256, (5,5), activation="sigmoid", padding="valid"))
 		model.add(MaxPooling2D(pool_size=(2,2)))
-		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
+		model.add(Conv2D(128, (5,5), activation="relu", padding="valid"))
 		model.add(MaxPooling2D(pool_size=(2,2)))
-		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
-		model.add(MaxPooling2D(pool_size=(2,2)))
-		model.add(Conv2D(32, (5,5), activation="relu", input_shape=(1, 28, 28), padding="valid"))
-		model.add(MaxPooling2D(pool_size=(2,2)))
-
-		model.add(Dropout(0.2))
-
 		model.add(Flatten())
+		model.add(Dense(64, activation="sigmoid"))
+		model.add(Dense(32, activation="relu"))
+		model.add(Dense(len(self.train_batches.class_indices), activation="softmax"))
 
-		model.add(Dense(128, activation="sigmoid"))
+		adam_optimizer = self.createOptimizer("adam")
+		model.compile(loss="categorical_crossentropy", metrics=["accuracy"], optimizer=adam_optimizer)
 
-		# model.add(Dense(32, activation="relu"))
-		model.add(Dense(self.num_classes, activation="softmax"))
-
-		adm = self.createOptimizer("adam")
-		model.compile(loss="categorical_crossentropy", metrics=["accuracy"], optimizer=adm)
+		# Print the model architecture
 		print (model.summary())
 		return model
 
@@ -120,19 +116,33 @@ class Classify():
 		self.trained_model.evaluate_generator(generator=valid_generator)
 
 	def testModel(self):
-		self.training_score = self.trained_model.predict_generator(self.test_batches, verbose=self.verbosity)
+		# Reset the test batches to get the results in correct order
+		self.test_batches.reset()
+		# Obtain predictions for the images
+		preds = self.trained_model.predict_generator(self.test_batches, verbose=self.verbosity)
+		# Obtain indices from prediction because these would be categorical or one hot encoding and 
+		# need to be changed to class names
+		predicted_class_indices = np.argmax(preds,axis=1)
 
-	def getScores(self):
-		print("CNN Error: %.2f%%" % (100-self.training_score[1]*100))
+		labels = (self.train_batches.class_indices)
+		labels = dict((v,k) for k,v in labels.items())
+
+		# Final folder name based predictions
+		self.predictions = [labels[k] for k in predicted_class_indices]
+
+	def savePredictions(self):
+		filenames = self.test_batches.filenames
+		results = pd.DataFrame({"Filename":filenames,
+		                      "Predictions":self.predictions})
+		results.to_csv("results.csv",index=False)
 
 	def execute(self):
 		loadData()
-		prepareData()
-		prepareLabels()
 		created_model = createModel()
 		trainModel(created_model)
+		evaluateModel()
 		testModel()
-		getScores()
+		savePredictions()
 
 
 if __name__ == '__main__':
@@ -142,9 +152,9 @@ if __name__ == '__main__':
 	valid_path = " "
 	paths = [train_path, test_path, valid_path]
 
-	epochs, b_size, vbose = 10, 200, 0
-	mnist_obj = RecogniseHandWrittenDigits(epochs, b_size, vbose)
-	mnist_obj.execute()
+	epochs, b_size, vbose = 10, 200, 1
+	face_recognition = FaceRecognition(epochs, b_size, vbose)
+	face_recognition.execute()
 
 
 
