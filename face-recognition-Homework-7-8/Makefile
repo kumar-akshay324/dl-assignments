@@ -9,6 +9,7 @@ recognize-faces:
 
 install-dependencies:
 	pip install opencv-python
+	pip install pyfastcopy	
 
 reduce-dataset:
 	@python3 src/reduce_data.py
