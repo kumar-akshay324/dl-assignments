@@ -6,7 +6,14 @@ SVM-Week1/f16RBE595/__pycache__
 Image-parser-Week6/VOCdevkit/VOC2012
 Image-parser-Week6/classes
 face-recognition-Homework-7-8/images/*
+face-recognition-Homework-7-8/videos/*
+face-recognition-Homework-7-8/*.h5
+face-recognition-Homework-7-8/data/*
+face-recognition-Homework-7-8/videos1
 
 */src/__pycache__
 */__pycache__
 */*/__pycache__
+*/src/*.pyc
+
+

@@ -95,14 +95,64 @@ CNN Error: 0.96%
 
 ### STILL UNDER HEAVY DEVELOPMENT
 
-### Usage
+# Face Recognition Using DeepLearning Python
 
-#### Video to Image Extraction
-	* Place the video of the person inside face-recognition-Homework-7-8/videos folder with the name <person_name>.mp4
-	* From the main directory of the project, i.e. face-recognition-Homework-7-8/, run `make run`
-	* The extracted images should be stored at face-recognition-Homework-7-8/images/<person_name>/image_<frame_number>
+THIS IS STILL UNDER HEAVY DEVELOPMENT!
+
+A complete face recognition pipeline that takes in various videos of people, parses them to images as per input frames per second available in the video, extracts the face from the complete image using OpenCV cascade filters and then uses DeepLearning (Convolutional Neural Networks) to classify the faces for different people.
 
 ### File Structure
 
-### Results
+
+```
+├── face-recognition-Homework-7-8
+	├── cnn_face_recognition.h5
+	├── Makefile
+	├── REAME.md
+	├── images
+	│   ├── classA
+	│   ├── classB
+	│   └── classC
+	├── src
+	│   ├── extract_faces.py
+	│   ├── extract_video_frames.py
+	│   └── face_recognition_cnn.py
+	└── videos
+	    ├── classA
+	    │   ├── video1.mp4
+	    │   ├── video2.mp4
+	    │   ├── video3.mp4
+	    │   └── video4.mp4
+	    ├── classB
+	    │   ├── video1.mp4
+	    └── classC
+	        ├── video3.mp4
+	        └── video4.mp4
+```
+## File Description
+
+* _extract_video_frames.py_: Extracts individual frames from videos and creates dataset
+* _extract_faces.py_: Extracts only the face region from any image
+* _face_recognition_cnn.py_: Uses the CNN deep network to run classification 
+
+## Usage
+
+The complete pipeline is based on _make_ utility system and uses a _Makefile_
+
+All the `make` commands should be run from the base directory, i.e. from _face-recognition-Homework-7-8_
+
+### Data Preparation
+
+* Record videos of the face/face-focused body and store them inside the _videos_ folder within the sub-folder _class_name_
+* Run command `make install-dependencies` to install all the system dependencies
+* Run command `make images` to generate dataset with images extracted from all the videos and accumulated below _images/class_name_
+
+* Optional -  Run command `make detect-faces` to extract the specific facial zones from all the images generated above to working on specifically facial regions  in the images as a simplified image classification problem. 
+	THIS SCRIPT IS STILL BEING MODIFIED  - DO NOT IMPLEMENT THIS, INSTEAD TRY TO CREATE VIDEOS WITH >80% OF THE CANVAS OCCUPIED WITH THE FACE
+
+* You can manually divide the images obtained into training, testing and validation data while the work to automate that is still underway.
+
+### Face Recognition
+
+* Run command `make recognize_faces` to run a CNN deep network that works on the supplied images to classify images on the classes from the training data.
 
